@@ -55,8 +55,18 @@ section TFF
 end TFF
 
 
-
-
+/-
+SENT: The dog arrived barking.
+[ LTOP: h0
+ INDEX: e2 [ e SF: prop TENSE: past MOOD: indicative PROG: - PERF: - ]
+  RELS: < [ _the_q<0:3> LBL: h4 ARG0: x3 [ x PERS: 3 NUM: sg IND: + ] RSTR: h5 BODY: h6 ]
+          [ _dog_n_1<4:7> LBL: h7 ARG0: x3 ]
+          [ _arrive_v_1<8:15> LBL: h8 ARG0: e2 ARG1: x3 ]
+          [ subord<16:24> LBL: h1 ARG0: e9 [ e SF: prop ] ARG1: h10 ARG2: h11 ]
+          [ _bark_v_1<16:23> LBL: h12 ARG0: e13 [ e SF: prop TENSE: untensed MOOD: indicative PROG: + PERF: - ] ARG1: i14 ] >
+HCONS: < h0 qeq h1 h5 qeq h7 h10 qeq h8 h11 qeq h12 >
+ICONS: < > ]
+-/
 
 
 section 
