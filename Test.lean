@@ -1,6 +1,9 @@
 
-/- Examples from 
-   https://github.com/delph-in/docs/wiki/MatrixMrsTestSuiteEn -/
+/- 
+   Examples from 
+   https://github.com/delph-in/docs/wiki/MatrixMrsTestSuiteEn 
+-/
+
 
 /- 
 SENT: It rained.
@@ -70,6 +73,20 @@ SENT: The dog arrived barking.
 HCONS: < h0 qeq h1 h5 qeq h7 h10 qeq h8 h11 qeq h12 >
 ICONS: < > ]
 -/
+
+
+section 
+ variable (e : Type) (x : Type) (i : Type)
+ variable (_dog_n_1 : x → Prop)
+ variable (_arrive_v_1 : e → x → Prop)
+ variable (subord : e → Prop → Prop → Prop)
+ variable (_bark_v_1 : e → i → Prop)  /- how to deal with uninstantiated? -/
+
+ #check ∃ e2, ∃ x3, _arrive_v_1 e2 x3 ∧ _dog_n_1 x3
+ #check ∃ e13, ∃ i14, _bark_v_1 e13 i14
+ #check ∃ e9, subord e9 (∃ e9, ∃ e13, ∃ i14, _bark_v_1 e13 i14) (∃ e2, ∃ x3, _arrive_v_1 e2 x3 ∧ _dog_n_1 x3)
+end
+
 
 
 section 
