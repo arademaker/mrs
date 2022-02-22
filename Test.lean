@@ -1,4 +1,7 @@
 
+/- Examples from 
+   https://github.com/delph-in/docs/wiki/MatrixMrsTestSuiteEn -/
+
 /- 
 SENT: It rained.
 
