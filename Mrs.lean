@@ -1,23 +1,32 @@
 
+abbrev ℕ := Nat
 
-def hello := "world"
-
+constant I : Type
 
 structure Constraint where
-  lhs : α
-  rhs : α
+  lhs : I
+  rhs : I
 
-structure EP (α : Type u) where
-  handle : Nat
+structure EP where
+  handle : ℕ 
   predicate : String
-  a : list α
-  s : list α 
+  a : List I
+  s : List I 
   c : String
 
 structure MRS (α : Type u) where
-  gt : Var
-  index : Var
-  r : list EP
-  i : list Constraint
-  c : list Constraint
+  gt : I
+  index : I
+  r : List EP
+  i : List Constraint
+  c : List Constraint
+
+
+
+theorem and_commutative (p q : Prop) : p ∧ q → q ∧ p := 
+  λ hpq : p ∧ q =>
+  have hp : p := And.left hpq
+  have hq : q := And.right hpq
+  show q ∧ p from And.intro hq hp
+
 

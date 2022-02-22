@@ -1,4 +1,8 @@
 import Mrs
 
-def main : IO Unit :=
-  IO.println s!"Hello, {hello}!"
+def main (hellos : List String)  : IO Unit :=
+  for hello in hellos do
+    IO.println s!"Hello, {hello}!"
+
+#eval main ["Alexandre"]
+
