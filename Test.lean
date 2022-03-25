@@ -60,6 +60,15 @@ section TFF
  #check ∃ e2 : e, ∃ x3 : x, _bark_v_1 e2 x3 ∧ named "Abrams" x3
 end TFF
 
+section MTT
+ universe CN
+ 
+ variable (_bark_v_1 : Type CN → Prop)
+ variable (named : String → Type CN → Type CN)
+
+ #check ∃ m : (Σ x3 : Type CN, named "Abrams" x3), _bark_v_1 m.1
+end MTT
+
 
 /-
 SENT: The dog arrived barking.
@@ -74,19 +83,105 @@ HCONS: < h0 qeq h1 h5 qeq h7 h10 qeq h8 h11 qeq h12 >
 ICONS: < > ]
 -/
 
+section FOL
+ /- 'the' and 'subord' can't be represented, uninstantiated variable
+    is not different from the other ones, no explicit connection
+    between the events -/
 
-section TFF
+ variable (u : Type)
+ variable (_dog_n_1 : u → Prop)
+ variable (_bark_v_1 : u → u → Prop)
+ variable (_arrive_v_1 : u → u → Prop)
+
+ #check  ∃ e2 e13 i14 x, _dog_n_1 x ∧ _arrive_v_1 e2 x ∧ _bark_v_1 e13 i14
+end FOL
+
+section THF
+  /- 'the' is not represented, implicited converted to ∃ -/
+
  variable (e : Type) (x : Type) (i : Type)
  variable (_dog_n_1 : x → Prop)
  variable (_arrive_v_1 : e → x → Prop)
  variable (subord : e → Prop → Prop → Prop)
  variable (_bark_v_1 : e → i → Prop)  /- how to deal with uninstantiated? -/
 
- #check ∃ e2, ∃ x3, _arrive_v_1 e2 x3 ∧ _dog_n_1 x3
- #check ∃ e13, ∃ i14, _bark_v_1 e13 i14
- #check ∃ e9, subord e9 (∃ e9, ∃ e13, ∃ i14, _bark_v_1 e13 i14) (∃ e2, ∃ x3, _arrive_v_1 e2 x3 ∧ _dog_n_1 x3)
-end TFF
+ #check ∃ e9, subord e9 (∃ e13 i14, _bark_v_1 e13 i14) (∃ e2 x3, _arrive_v_1 e2 x3 ∧ _dog_n_1 x3)
+end THF
 
+
+section MTT
+
+  universe CN
+
+  variable (_dog_n_1 : Type CN)
+  variable (_arrive_v_1 : _dog_n_1 → Prop)
+  variable (_bark_v_1 : _dog_n_1 → Prop)
+
+
+end MTT
+
+/-
+SENT: She noticed a jaguar speeding up on the highway
+[ LTOP: h0
+INDEX: e2 [ e SF: prop TENSE: past MOOD: indicative PROG: - PERF: - ]
+RELS: < 
+ [ pron<0:3>          LBL: h4 ARG0: x3 [ x PERS: 3 NUM: sg GEND: f IND: + PT: std ] ]
+ [ pronoun_q<0:3>     LBL: h5 ARG0: x3 RSTR: h6 BODY: h7 ]
+ [ _notice_v_1<4:11>  LBL: h1 ARG0: e2 ARG1: x3 ARG2: x8 [ x PERS: 3 NUM: sg IND: + ] ]
+ [ _a_q<12:13>        LBL: h9 ARG0: x8 RSTR: h10 BODY: h11 ]
+ [ _jaguar_n_1<14:20> LBL: h12 ARG0: x8 ]
+ [ _speed_v_up<21:29> LBL: h12 ARG0: e13 [ e SF: prop TENSE: untensed MOOD: indicative PROG: + PERF: - ] ARG1: x8 ]
+ [ _on_p_state<33:35> LBL: h12 ARG0: e14 [ e SF: prop TENSE: untensed MOOD: indicative PROG: - PERF: - ] 
+                               ARG1: e13 ARG2: x15 [ x PERS: 3 NUM: sg IND: + ] ]
+ [ _the_q<36:39>       LBL: h16 ARG0: x15 RSTR: h17 BODY: h18 ]
+ [ _highway_n_1<40:47> LBL: h19 ARG0: x15 ] >
+HCONS: < h0 qeq h1 h6 qeq h4 h10 qeq h12 h17 qeq h19 >
+ICONS: < > ]
+
+ (h0 (h1 ?))
+ (h5  x3  (h6 (h4 ?)) (h7 ?)) 
+ (h9  x8  (h10 (h12 ?)) (h11 ?))
+ (h16 x15 (h17 (h19 ?)) (h18 ?))
+
+ h4  = pron x3
+ h1  = _notice_v_1 e2 x3 x8
+ h12 = _jaguar_n_1 x8 ∧ _speed_v_up e13 x8 ∧ _on_p_state e4 e13 x15
+ h19 = _highway_n_1 x15
+
+ (h5  x3  (h6 (h4 ?)) (h7 (h16 x15 (h17 (h19 ?)) (h18 (h9  x8  (h10 (h12 ?)) (h11 (h0 (h1 ?)))))))) 
+-/
+
+section THF
+ variable (e : Type) (x : Type) 
+ variable (pron : x → Prop)
+ variable (_notice_v_1 : e → x → x → Prop)
+ variable (_jaguar_n_1 : x → Prop)
+ variable (_speed_v_up : e → x → Prop)  
+ variable (_on_p_state : e → e → x → Prop)
+ variable (_highway_n_1 : x → Prop)
+
+ #check ∃ e4 e13 e2, 
+  ∃ x3, (pron x3) ∧ 
+   (∃ x15, (_highway_n_1 x15) ∧ 
+    (∃ x8, (_jaguar_n_1 x8 ∧ _speed_v_up e13 x8 ∧ _on_p_state e4 e13 x15) ∧ (_notice_v_1 e2 x3 x8)))
+
+end THF
+
+section MTT
+  universe CN
+
+  variable (pron : Type CN)
+  variable (_jaguar_n_1 : Type CN)
+  variable (_highway_n_1 : Type CN)
+  variable (_speed_v_up : _jaguar_n_1 → Prop)
+  variable (_notice_v_1 : pron → _jaguar_n_1 → Prop)
+  variable (_on_p_state : Prop → _highway_n_1 → Prop)
+
+  variable (z₁ : (∃ x8 : _jaguar_n_1, _speed_v_up x8))
+  variable (z₂ : (∃ x3 : pron, _notice_v_1 x3 z₁.1))
+  variable (z₂ : (∃ x15 : _highway_n_1, _on_p_state z₁ x15))
+
+end MTT
 
 
 /-
@@ -132,14 +227,14 @@ end FOF
 
 section MTT 
 
-  abbrev CN := Type
+  universe CN
 
-  variable (_farmer_n_1 : CN)
-  variable (_donkey_n_1 : CN)
-  variable (_own_v_1 : _farmer_n_1 → _donkey_n_1 → Type)
+  variable (_farmer_n_1 : Type CN)
+  variable (_donkey_n_1 : Type CN)
+  variable (_own_v_1 : _farmer_n_1 → _donkey_n_1 → Prop)
   variable (_beat_v_to : _farmer_n_1 → _donkey_n_1 → Prop)
 
-  #check ∀ z : (Σ x : _farmer_n_1, Σ y : _donkey_n_1, _own_v_1 x y), _beat_v_to z.1 z.2.1
+  #check ∀ z : (∃ x : _farmer_n_1, ∃ y : _donkey_n_1, _own_v_1 x y), _beat_v_to z.1 z.2.1
  
 end MTT
 
@@ -162,12 +257,3 @@ end
 
 
 
-
-
-
-
-
-          
-    
-    
- 
