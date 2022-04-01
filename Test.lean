@@ -15,22 +15,12 @@ SENT: It rained.
   ICONS: < > ]
 -/
 
-section FOF
- variable (u : Type)
- variable (_rain_v_1 : u → Prop)
-
- #check ∃ e2, _rain_v_1 e2
-end FOF
-
-
 section TFF
  variable (e : Type) 
  variable (_rain_v_1 : e → Prop)
 
  #check ∃ e2, _rain_v_1 e2
-
 end TFF
-
 
 /-
 SENT: Abrams barked.
@@ -57,7 +47,7 @@ section TFF
  variable (_bark_v_1 : e → x → Prop)
  variable (named : String → x → Prop)
 
- #check ∃ e2 : e, ∃ x3 : x, _bark_v_1 e2 x3 ∧ named "Abrams" x3
+ #check ∃ e2 : e, ∃ x3 : x, _bark_v_1 e2 x3 ∧ named "Abrams" x3 
 end TFF
 
 section MTT
@@ -66,7 +56,7 @@ section MTT
  variable (_bark_v_1 : Type CN → Prop)
  variable (named : String → Type CN → Type CN)
 
- #check ∃ m : (Σ x3 : Type CN, named "Abrams" x3), _bark_v_1 m.1
+ #check ∃ h7 : (Σ x3 : Type CN, named "Abrams" x3), _bark_v_1 h7.1
 end MTT
 
 
@@ -109,16 +99,6 @@ section THF
 end THF
 
 
-section MTT
-
-  universe CN
-
-  variable (_dog_n_1 : Type CN)
-  variable (_arrive_v_1 : _dog_n_1 → Prop)
-  variable (_bark_v_1 : _dog_n_1 → Prop)
-
-
-end MTT
 
 /-
 SENT: She noticed a jaguar speeding up on the highway
@@ -151,7 +131,7 @@ ICONS: < > ]
  (h5  x3  (h6 (h4 ?)) (h7 (h16 x15 (h17 (h19 ?)) (h18 (h9  x8  (h10 (h12 ?)) (h11 (h0 (h1 ?)))))))) 
 -/
 
-section THF
+section TFF
  variable (e : Type) (x : Type) 
  variable (pron : x → Prop)
  variable (_notice_v_1 : e → x → x → Prop)
@@ -165,7 +145,7 @@ section THF
    (∃ x15, (_highway_n_1 x15) ∧ 
     (∃ x8, (_jaguar_n_1 x8 ∧ _speed_v_up e13 x8 ∧ _on_p_state e4 e13 x15) ∧ (_notice_v_1 e2 x3 x8)))
 
-end THF
+end TFF
 
 section MTT
   universe CN
@@ -175,11 +155,10 @@ section MTT
   variable (_highway_n_1 : Type CN)
   variable (_speed_v_up : _jaguar_n_1 → Prop)
   variable (_notice_v_1 : pron → _jaguar_n_1 → Prop)
-  variable (_on_p_state : Prop → _highway_n_1 → Prop)
+  variable (_on_p_state : ∀ {x y : Type CN}, y → (x → Prop) → (x → Prop))
 
-  variable (z₁ : (∃ x8 : _jaguar_n_1, _speed_v_up x8))
-  variable (z₂ : (∃ x3 : pron, _notice_v_1 x3 z₁.1))
-  variable (z₂ : (∃ x15 : _highway_n_1, _on_p_state z₁ x15))
+
+  #check ∃ z : (∃ x8 : _jaguar_n_1, (∃ x15 : _highway_n_1, (_on_p_state x15 _speed_v_up) x8)), ∃ x3 : pron, _notice_v_1 x3 z.1
 
 end MTT
 
@@ -239,21 +218,69 @@ section MTT
 end MTT
 
 
-section 
- variable (entity : Type)
+/-
+SENT: A man walks.
+[ LTOP: h0
+INDEX: e2 [ e SF: prop TENSE: pres MOOD: indicative PROG: - PERF: - ]
+RELS: < [ _a_q<0:1>       LBL: h4 ARG0: x3 [ x PERS: 3 NUM: sg IND: + ] RSTR: h5 BODY: h6 ]
+        [ _man_n_1<2:5>   LBL: h7 ARG0: x3 ]
+        [ _walk_v_1<6:11> LBL: h1 ARG0: e2 ARG1: x3 ] >
+HCONS: < h0 qeq h1 h5 qeq h7 >
+ICONS: < > ]
+-/
 
- variable (rich : entity → Type)
- variable (linguist : entity → Type)
+section MTT
 
- variable (john : entity)
- variable (w : linguist john) 
+  universe CN
 
- variable (v : ∀ x : (@Sigma entity linguist), rich x.1)
+  variable (_man_n_1 : Type CN)
+  variable (_walk_v_1 : _man_n_1 → Type)
+ 
+  #check Σ x3 : _man_n_1, _walk_v_1 x3
 
- theorem test : rich john := 
-  by have h₁ := v (Sigma.mk john w)
-     exact h₁ 
-end
+end MTT
 
 
+/-
+SENT: Some Irish delegates finished the survey on time.
+[ LTOP: h0
+INDEX: e2 [ e SF: prop TENSE: past MOOD: indicative PROG: - PERF: - ]
+RELS: < 
+ [ _some_q<0:4>         LBL: h4 ARG0: x3 [ x PERS: 3 NUM: pl IND: + ] RSTR: h5 BODY: h6 ]
+ [ _irish_a_1<5:10>     LBL: h7 ARG0: e8 [ e SF: prop TENSE: untensed MOOD: indicative PROG: bool PERF: - ] ARG1: x3 ]
+ [ _delegate_n_1<11:20> LBL: h7 ARG0: x3 ]
+ [ _finish_v_1<21:29>   LBL: h1 ARG0: e2 ARG1: x3 ARG2: x9 [ x PERS: 3 NUM: sg IND: + ] ]
+ [ _the_q<30:33>        LBL: h10 ARG0: x9 RSTR: h11 BODY: h12 ]
+ [ _survey_n_1<34:40>   LBL: h13 ARG0: x9 ]
+ [ _on+time_a_1<41:48>  LBL: h1 ARG0: e14 [ e SF: prop TENSE: untensed MOOD: indicative PROG: - PERF: - ] ARG1: e2 ] >
+HCONS: < h0 qeq h1 h5 qeq h7 h11 qeq h13 >
+ICONS: < > ]
+-/
 
+
+/-
+SENT: Corrosion prevented continuous contact.
+[ LTOP: h0
+INDEX: e2 [ e SF: prop TENSE: past MOOD: indicative PROG: - PERF: - ]
+RELS: < 
+ [ udef_q<0:9>            LBL: h4 ARG0: x3 [ x PERS: 3 NUM: sg GEND: n IND: - ] RSTR: h5 BODY: h6 ]
+ [ _corrosion_n_1<0:9>    LBL: h7 ARG0: x3 ]
+ [ _prevent_v_from<10:19> LBL: h1 ARG0: e2 ARG1: x3 ARG2: x8 [ x PERS: 3 NUM: sg ] ]
+ [ udef_q<20:39>          LBL: h9 ARG0: x8 RSTR: h10 BODY: h11 ]
+ [ _continuous_a_1<20:30> LBL: h12 ARG0: e13 [ e SF: prop TENSE: untensed MOOD: indicative PROG: bool PERF: - ] ARG1: x8 ]
+ [ _contact_n_1<31:38>    LBL: h12 ARG0: x8 ] >
+HCONS: < h0 qeq h1 h5 qeq h7 h10 qeq h12 >
+ICONS: < > ]
+-/
+
+section MTT
+  universe CN
+
+  variable (_corrosion_n_1 : Type CN)
+  variable (_contact_n_1 : Type CN)
+  variable (_prevent_v_from : _corrosion_n_1 → _contact_n_1 → Prop)
+  variable (_continuous_a_1 : _contact_n_1 → Prop)
+
+  #check ∃ h₉ : (∃ x8, _continuous_a_1 x8), ∃ x3, _prevent_v_from x3 h₉.1
+
+end MTT
