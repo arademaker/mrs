@@ -33,19 +33,10 @@ SENT: Abrams barked.
  ICONS: < > ]
 -/
 
-section FOF
- variable (u : Type)
- variable (_bark_v_1 : u → u → Prop)
- variable (named : u → Prop)  /- string? -/
-
- #check ∃ e2, ∃ x3, _bark_v_1 e2 x3 ∧ named x3
-end FOF
-
-
 section TFF
  variable (e : Type) (x : Type)
  variable (_bark_v_1 : e → x → Prop)
- variable (named : String → x → Prop)
+ variable (named : String → x → Prop) /- FOL can't do that -/
 
  #check ∃ e2 : e, ∃ x3 : x, _bark_v_1 e2 x3 ∧ named "Abrams" x3 
 end TFF
@@ -56,7 +47,7 @@ section MTT
  variable (_bark_v_1 : Type CN → Prop)
  variable (named : String → Type CN → Type CN)
 
- #check ∃ h7 : (Σ x3 : Type CN, named "Abrams" x3), _bark_v_1 h7.1
+ axiom s : ∃ h7 : (Σ x3 : Type CN, named "Abrams" x3), _bark_v_1 h7.1
 end MTT
 
 
@@ -93,9 +84,9 @@ section THF
  variable (_dog_n_1 : x → Prop)
  variable (_arrive_v_1 : e → x → Prop)
  variable (subord : e → Prop → Prop → Prop)
- variable (_bark_v_1 : e → i → Prop)  /- how to deal with uninstantiated? -/
+ variable (_bark_v_1 : e → i → Prop)  /- how to deal with i type -/
 
- #check ∃ e9, subord e9 (∃ e13 i14, _bark_v_1 e13 i14) (∃ e2 x3, _arrive_v_1 e2 x3 ∧ _dog_n_1 x3)
+ #check ∃ e9, subord e9 (∃ x3, _dog_n_1 x3 ∧ (∃ e2, _arrive_v_1 e2 x3)) (∃ e13 i14, _bark_v_1 e13 i14) 
 end THF
 
 
