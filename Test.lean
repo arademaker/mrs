@@ -52,6 +52,55 @@ end MTT
 
 
 /-
+SENT: The window opened.
+[ LTOP: h0
+INDEX: e2 [ e SF: prop TENSE: past MOOD: indicative PROG: - PERF: - ]
+RELS: < 
+ [ _the_q<0:3>       LBL: h4 ARG0: x3 [ x PERS: 3 NUM: sg IND: + ] RSTR: h5 BODY: h6 ]
+ [ _window_n_1<4:10> LBL: h7 ARG0: x3 ]
+ [ _open_v_1<11:17>  LBL: h1 ARG0: e2 ARG1: x3 ] >
+HCONS: < h0 qeq h1 h5 qeq h7 >
+ICONS: < > ]
+-/
+
+section TFF
+ /- the quantifier 'the' is implicited converted to ∃, we use event
+    variables (Davidson's semantics) -/
+
+ variable (x : Type) (e : Type)
+ variable (_window_n_1 : x → Prop)
+ variable (_open_v_1: e → x → Prop)
+
+ #check ∃ x3 e2, _window_n_1 x3 ∧ _open_v_1 e2 x3 
+end TFF
+
+section MTT
+ universe CN
+
+ variable (Thing : Type CN)
+
+ variable (_the_q : ∀ a : Type CN, (a → Prop) → Prop)
+ variable (_window_n_1 : Type CN)
+ variable (_open_v_1 : Thing → Prop)
+
+ axiom mh : _window_n_1 → Thing
+ variable (agent : Thing)
+ 
+ -- _window_n_1 < Thing
+ instance : Coe _window_n_1 Thing where
+  coe w := agent
+
+ def toThing : _window_n_1 → Thing
+  | w => agent
+ 
+ #check ∃ w : _window_n_1, _open_v_1 (toThing w)
+
+ #check _the_q (coe _window_n_1) _open_v_1
+end MTT
+
+
+
+/-
 SENT: The dog arrived barking.
 [ LTOP: h0
  INDEX: e2 [ e SF: prop TENSE: past MOOD: indicative PROG: - PERF: - ]
@@ -136,6 +185,9 @@ section TFF
    (∃ x15, (_highway_n_1 x15) ∧ 
     (∃ x8, (_jaguar_n_1 x8 ∧ _speed_v_up e13 x8 ∧ _on_p_state e4 e13 x15) ∧ (_notice_v_1 e2 x3 x8)))
 
+ -- CNF encoding ?
+ -- prepare guys with Logic backgroud
+ -- I have thing combine semantic structure sentence with UKB (!!)
 end TFF
 
 section MTT
@@ -275,3 +327,6 @@ section MTT
   #check ∃ h₉ : (∃ x8, _continuous_a_1 x8), ∃ x3, _prevent_v_from x3 h₉.1
 
 end MTT
+
+
+
