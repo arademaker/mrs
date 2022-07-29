@@ -62,8 +62,8 @@ section
 axiom a1 : ∃ e2, ∃ i8, ∃ e9, ∃ e10, ∃ e16, ∃ x11, (∃ x17, named x17 "Apple" ∧ compound e16 x11 x17 ∧ named x11 "Store") 
  ∧ (∃ x24, _electronics_n_1 x24 ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24))
 
-axiom a2 : ∃ e2 i8 e9 e10 x11, named x11 "Apple Store" ∧ store x11 
- ∧ (∃ x24, _electronics_n_1 x24 ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24))
+axiom a2 : ∃ e2 i8 e9 e10 x11 x24, named x11 "Apple Store" ∧ store x11 ∧ _electronics_n_1 x24 
+ ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24)
 
 
 end 
