@@ -35,6 +35,7 @@
           [ _electronics_n_1<37:48> LBL: h28 ARG0: x24 ] >
   HCONS: < h0 qeq h1 h5 qeq h7 h13 qeq h15 h19 qeq h21 h26 qeq h28 > ]
 
+
 (b / buy-01
       :ARG0 (p / person
             :ARG0-of (g / go-02
@@ -66,6 +67,5 @@ axiom a2 : ∃ e2 i8 e9 e10 x11, named x11 "Apple Store" ∧ store x11
 
 
 end 
-
 
 
