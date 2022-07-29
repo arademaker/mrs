@@ -58,13 +58,32 @@ section
  constant _buy_v_1 : u → u → u → Prop
 
  constant store : u → Prop
- 
-axiom a1 : ∃ e2, ∃ i8, ∃ e9, ∃ e10, ∃ e16, ∃ x11, (∃ x17, named x17 "Apple" ∧ compound e16 x11 x17 ∧ named x11 "Store") 
- ∧ (∃ x24, _electronics_n_1 x24 ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24))
+ constant person : u → Prop
+ constant electronics : u → Prop
+ constant buy_01 : u → Prop
+ constant go_02 : u → Prop
+ constant ARG0 : u → u → Prop
+ constant ARG0_of : u → u → Prop
+ constant ARG1 : u → u → Prop
+ constant ARG4 : u → u → Prop
+ constant ALL : u → Prop
+ constant mod : u → u → Prop
+ constant name : u → Prop
+ constant name1 : u → u → Prop
+ constant op1 : u → String → Prop
+ constant op2 : u → String → Prop
+  
+ -- amr2logic 
+ axiom a0 : ∃ b, (buy_01 b ∧ ∃ p, (person p ∧ ∃ g, (go_02 g ∧ ∃ s, (store s ∧ ∃ n, (name n ∧ op1 n "Apple" ∧ op2 n "Store" ∧ name1 s n) 
+  ∧ ARG4 g s ) ∧ ARG0_of p g) ∧ ∃ a, (ALL a ∧ mod p a) ∧ ARG0 b p) ∧ ∃ e,(electronics e ∧ ARG1 b e))
 
-axiom a2 : ∃ e2 i8 e9 e10 x11 x24, named x11 "Apple Store" ∧ store x11 ∧ _electronics_n_1 x24 
- ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24)
+ -- MRS2logic 
+ axiom a1 : ∃ e2, ∃ i8, ∃ e9, ∃ e10, ∃ e16, ∃ x11, (∃ x17, named x17 "Apple" ∧ compound e16 x11 x17 ∧ named x11 "Store") 
+  ∧ (∃ x24, _electronics_n_1 x24 ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24))
 
+ -- MRS+AMR manually simplified
+ axiom a2 : ∃ e2 i8 e9 e10 x11 x24, named x11 "Apple Store" ∧ store x11 ∧ _electronics_n_1 x24 
+  ∧ (∀ x3, (_people_n_of x3 i8 ∧ _go_v_1 e9 x3 ∧ _to_p_dir e10 e9 x11) → _buy_v_1 e2 x3 x24)
 
 end 
 
